@@ -6,15 +6,26 @@ Vue.use(Router);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/posts',
-    name: 'posts',
-    component: () => import('./views/Posts.vue')
-  },
+    path:'/',
+    component: Home,
+    children: [
+      {
+          path:'',
+          name:'dashboard',
+          component: () => import('./views/Dashboard.vue')
+      },
+      {
+          path:'posts',
+          name: 'posts',
+          component: () => import('./views/Posts.vue')
+      },
+      {
+        path:'notices',
+        name: 'notices',
+        component: () => import('./views/Notices.vue')
+      },
+    ],
+  }
 ]
 
 const router = new Router({

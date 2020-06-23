@@ -1,18 +1,14 @@
 <template>
   <main>
-    <Navbar />  
-    <router-view></router-view>
-    <Footer />
+    <router-view></router-view> 
   </main>
 </template>
 
 <script>
-  import Navbar from './components/Navbar.vue';
-  import Footer from  './components/Footer.vue';
   export default {
-    components: {
-      Navbar,
-      Footer,
-    }
+    name: 'App',
+    mounted() {
+            console.log('Component mounted.')
+        }
   }
 </script>

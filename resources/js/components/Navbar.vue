@@ -15,7 +15,9 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Заметки</a>
+              <router-link to="/notices" class="nav-link">
+                Заметки
+              </router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Задачи</a>
@@ -28,8 +30,5 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
     }
 </script>
