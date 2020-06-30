@@ -8,18 +8,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-              <router-link to="/posts" class="nav-link">
+          <li class="nav-item">
+              <router-link to="/posts" class="nav-link" active-class="active">
                 Посты
               </router-link>
           </li>
           <li class="nav-item">
-              <router-link to="/notices" class="nav-link">
+              <router-link to="/notices" class="nav-link" active-class="active">
                 Заметки
               </router-link>
           </li>
           <li class="nav-item">
-              <router-link to="#" class="nav-link">
+              <router-link to="#" class="nav-link" active-class="active">
                 Задачи
               </router-link>
           </li>

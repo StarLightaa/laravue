@@ -1,37 +1,42 @@
 <template>
-  <div>
-    <b-form @submit.prevent="onSubmit()">
-      <b-form-group id="input-group-title" label="Заголовок:" label-for="input-title">
-        <b-form-input
-          id="input-title"
-          v-model="form.title"
-          required
-          placeholder="Введите заголовок"
-        ></b-form-input>
-      </b-form-group>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <b-form @submit.prevent="onSubmit()">
+          <b-form-group id="input-group-title" label="Заголовок:" label-for="input-title">
+            <b-form-input
+              id="input-title"
+              v-model="form.title"
+              required
+              placeholder="Введите заголовок"
+            ></b-form-input>
+          </b-form-group>
 
-      <b-form-group id="input-group-body" label="Текст:" label-for="input-body">
-        <b-form-input
-          id="input-body"
-          v-model="form.body"
-          placeholder="Введите текст"
-        ></b-form-input>
-      </b-form-group>
+          <b-form-group id="textarea-group-body" label="Текст:" label-for="textarea-body">
+            <b-form-textarea
+              id="textarea-body"
+              v-model="form.body"
+              placeholder="Введите текст"
+              rows="3"
+            ></b-form-textarea>
+          </b-form-group>
 
-      <!-- <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-        <b-form-select
-          id="input-3"
-          v-model="form.food"
-          :options="foods"
-          required
-        ></b-form-select>
-      </b-form-group> -->
+          <!-- <b-form-group id="input-group-3" label="Food:" label-for="input-3">
+            <b-form-select
+              id="input-3"
+              v-model="form.food"
+              :options="foods"
+              required
+            ></b-form-select>
+          </b-form-group> -->
 
-      <b-button type="submit" variant="primary">Сохранить</b-button>
-    </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
+          <b-button type="submit" variant="primary">Сохранить</b-button>
+        </b-form>
+        <b-card class="mt-3" header="Form Data Result">
+          <pre class="m-0">{{ form }}</pre>
+        </b-card>
+      </div>
+    </div>
   </div>
 </template>
 

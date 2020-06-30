@@ -26,5 +26,6 @@
       <!-- Custom scripts for this template -->
       <script src="{{ asset('js/main.js') }}"></script>
       <script src="{{ asset('js/app.js') }}"></script>
+      <script src="{{ asset('js/footer.js') }}"></script>
     </body>
 </html>

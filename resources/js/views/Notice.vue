@@ -14,13 +14,13 @@
       >Редактировать</router-link>
       <a href="#" class="btn btn-danger btn-sm">Удалить</a>
     </div>
-    <div class="card-footer text-muted">
+    <!-- <div class="card-footer text-muted">
       Posted on January 1, 2020 by
       <a href="#">Start Bootstrap</a>
-    </div>
+    </div> -->
 
     <div class="card-footer text-muted">
-      <span>Создана {{ notice.created_at}}</span>
+      <span>Создана {{ notice.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
     </div>
   </div>
 </template>

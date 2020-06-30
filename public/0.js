@@ -56,6 +56,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -175,87 +180,98 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
       _c(
-        "b-form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.onSubmit()
-            }
-          }
-        },
+        "div",
+        { staticClass: "col-md-8" },
         [
           _c(
-            "b-form-group",
+            "b-form",
             {
-              attrs: {
-                id: "input-group-title",
-                label: "Заголовок:",
-                "label-for": "input-title"
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.onSubmit()
+                }
               }
             },
             [
-              _c("b-form-input", {
-                attrs: {
-                  id: "input-title",
-                  required: "",
-                  placeholder: "Введите заголовок"
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "input-group-title",
+                    label: "Заголовок:",
+                    "label-for": "input-title"
+                  }
                 },
-                model: {
-                  value: _vm.form.title,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "title", $$v)
-                  },
-                  expression: "form.title"
-                }
-              })
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "input-title",
+                      required: "",
+                      placeholder: "Введите заголовок"
+                    },
+                    model: {
+                      value: _vm.form.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "title", $$v)
+                      },
+                      expression: "form.title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "textarea-group-body",
+                    label: "Текст:",
+                    "label-for": "textarea-body"
+                  }
+                },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "textarea-body",
+                      placeholder: "Введите текст",
+                      rows: "3"
+                    },
+                    model: {
+                      value: _vm.form.body,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "body", $$v)
+                      },
+                      expression: "form.body"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                { attrs: { type: "submit", variant: "primary" } },
+                [_vm._v("Сохранить")]
+              )
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "b-form-group",
-            {
-              attrs: {
-                id: "input-group-body",
-                label: "Текст:",
-                "label-for": "input-body"
-              }
-            },
-            [
-              _c("b-form-input", {
-                attrs: { id: "input-body", placeholder: "Введите текст" },
-                model: {
-                  value: _vm.form.body,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "body", $$v)
-                  },
-                  expression: "form.body"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("b-button", { attrs: { type: "submit", variant: "primary" } }, [
-            _vm._v("Сохранить")
-          ])
+            "b-card",
+            { staticClass: "mt-3", attrs: { header: "Form Data Result" } },
+            [_c("pre", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.form))])]
+          )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        { staticClass: "mt-3", attrs: { header: "Form Data Result" } },
-        [_c("pre", { staticClass: "m-0" }, [_vm._v(_vm._s(_vm.form))])]
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -6,6 +6,7 @@ import 'bootstrap';
 
 import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
+Vue.use(require('vue-moment'));
 
 new Vue({
     el: '#app',
