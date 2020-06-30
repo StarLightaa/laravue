@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Notices from './views/Notices.vue';
 
 Vue.use(Router);
 
@@ -22,7 +23,24 @@ const routes = [
       {
         path:'notices',
         name: 'notices',
-        component: () => import('./views/Notices.vue')
+        component: Notices,
+        // children: [
+        //   {
+        //     path: 'create',
+        //     name: 'notice-create',
+        //     component: () => import('./views/NoticeForm.vue'),
+        //   }
+        // ],
+      },
+      {
+        path:'notices/create',
+        name: 'notice-create',
+        component: () => import('./views/NoticeForm.vue'),
+      },
+      {
+        path:'notices/:notice_id',
+        name: 'notice-edit',
+        component: () => import('./views/NoticeForm.vue'),
       },
     ],
   }

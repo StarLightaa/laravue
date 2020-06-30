@@ -1,85 +1,128 @@
 <template>
-  <div>
-      <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="site-heading">
-              <h1>Заметки</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-      <!-- Main Content -->
-    <main>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="post-preview">
-              <a href="post.html">
-                <h2 class="post-title">
-                  Man must explore, and this is exploration at its greatest
-                </h2>
-                <h3 class="post-subtitle">
-                  Problems look mighty small from 150 miles up
-                </h3>
-              </a>
-              <p class="post-meta">Posted by
-                <a href="#">Start Bootstrap</a>
-                on September 24, 2019</p>
-            </div>
-            <hr>
+    <!-- Page Content -->
+  <div class="container">
 
-            <!-- Pager -->
-            <div class="clearfix">
-              <button class="btn btn-primary" @click="createNotice()">Create notice</button>
-              <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+        <h1 class="my-4">
+          <small></small>
+        </h1>
+
+        <Notice
+          v-for="notice in notices" 
+          :key="notice.id"
+          :notice = "notice"
+        ></Notice>
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+          <li class="page-item">
+            <a class="page-link" href="#">&larr; Older</a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link" href="#">Newer &rarr;</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-append">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
             </div>
           </div>
         </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Действиями с заметками</h5>
+          <div class="card-body">
+            <!-- <button class="btn btn-primary" @click="createNotice()">Новая заметка</button> -->
+            <router-link :to="{ name: 'notice-create'}" class="btn btn-primary">Новая заметка</router-link>
+          </div>
+        </div>
+
       </div>
-      <hr>
-    </main>
+
+    </div>
+    <!-- /.row -->
+
   </div>
+  <!-- /.container -->
 </template>
 
 <script>
-    import * as noticeService from '../services/notice_service';
-    export default {
-      name: 'notice',
-      data() {
-        return {
-          noticeData: {
-
-          }
+  import * as noticeService from '../services/notice_service';
+  import Notice from  './Notice.vue';
+  export default {
+    name: 'Notices',
+    components: {
+      Notice
+    },
+    data() {
+      return {
+        notices: []
+      }
+    },
+    mounted() {
+      this.loadNotices();
+    },
+    methods: {
+      loadNotices: async function() {
+        try {
+          const response = await noticeService.loadNotices();
+          this.notices = response.data;
+        } catch(error) {
+            alert('Some error occurred')
         }
       },
-      methods: {
-        createNotice: async function() {
-            let formData = new FormData();
-            formData.append('title', 'test title');
-            formData.append('body', 'test body');
-
-            try{
-                const response = await noticeService.createNotice(formData);
-            } catch(error) {
-                console.log(error);
-                // switch(error.response.status) {
-                //     case 422:
-                //         this.errors = error.response.data.errors;
-                //         break;
-                //     default:
-                //         this.flashMessage.error({
-                //             message: 'Some error occurred. Please try again!',
-                //             time: 3000
-                //         });
-                //         break;
-                // }
-            }
-        },
-      }, 
-    }
+    }, 
+  }
 </script>

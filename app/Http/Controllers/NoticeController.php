@@ -14,7 +14,8 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        //
+        $notices = Notice::orderBy('created_at','desc')->get();
+        return response()->json($notices, 200);
     }
 
     /**
@@ -80,7 +81,7 @@ class NoticeController extends Controller
      */
     public function update(Request $request, Notice $notice)
     {
-        //
+        dd('update method');
     }
 
     /**
