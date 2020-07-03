@@ -1,7 +1,9 @@
 import {http, httpFile} from './http_service';
 
-export function loadNotices() {
-  return http().get('/notices');
+export function loadNotices(data) {
+  return http().get('/notices',{
+    params: data
+  });
 }
 
 export function createNotice(data) {

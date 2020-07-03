@@ -21,6 +21,7 @@
 
     <div class="card-footer text-muted">
       <span>Создана {{ notice.created_at | moment("MMMM Do YYYY, h:mm a") }}</span>
+      <span class="badge badge-info" v-if="notice.category">{{ notice.category.name}}</span>
     </div>
   </div>
 </template>

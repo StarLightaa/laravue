@@ -49,33 +49,11 @@
         <div class="card my-4">
           <h5 class="card-header">Categories</h5>
           <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">Web Design</a>
-                  </li>
-                  <li>
-                    <a href="#">HTML</a>
-                  </li>
-                  <li>
-                    <a href="#">Freebies</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">JavaScript</a>
-                  </li>
-                  <li>
-                    <a href="#">CSS</a>
-                  </li>
-                  <li>
-                    <a href="#">Tutorials</a>
-                  </li>
-                </ul>
-              </div>
+            <div class="form-check" v-for="(category, index) in categories" :key="category.id">
+              <input class="form-check-input" type="checkbox" :value="category.id" :id="'category'+index" v-model="selected.categories">
+              <label class="form-check-label" :for="'category' + index">
+                  {{ category.name }} ({{ category.notices_count }})
+              </label>
             </div>
           </div>
         </div>
@@ -93,32 +71,55 @@
 
     </div>
     <!-- /.row -->
-
   </div>
   <!-- /.container -->
 </template>
 
 <script>
   import * as noticeService from '../services/notice_service';
+  import * as categoryService from '../services/category_service';
   import Notice from  './Notice.vue';
+  import Categories from './Categories.vue';
   export default {
     name: 'Notices',
     components: {
-      Notice
+      Notice,
+      Categories,
     },
     data() {
       return {
-        notices: []
+        notices: [],
+        categories: [],
+        selected: {
+          categories: [],
+        }
       }
     },
     mounted() {
       this.loadNotices();
+      this.loadCategories();
+    },
+    watch: {
+      selected: {
+        handler: function () {
+          this.loadNotices();
+        },
+        deep: true
+      }
     },
     methods: {
       loadNotices: async function() {
         try {
-          const response = await noticeService.loadNotices();
+          const response = await noticeService.loadNotices(this.selected);
           this.notices = response.data;
+        } catch(error) {
+            alert('Some error occurred')
+        }
+      },
+      loadCategories: async function() {
+        try {
+          const response = await categoryService.loadCategories();
+          this.categories = response.data;
         } catch(error) {
             alert('Some error occurred')
         }

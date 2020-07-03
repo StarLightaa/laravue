@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notice;
+use App\Category;
 use Illuminate\Http\Request;
 
 class NoticeController extends Controller
@@ -14,7 +15,7 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notices = Notice::orderBy('created_at','desc')->get();
+        $notices = Notice::with('category')->withFilters()->orderBy('created_at','desc')->get();
         return response()->json($notices, 200);
     }
 

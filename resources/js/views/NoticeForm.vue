@@ -89,7 +89,7 @@
             formData.append('_method', 'put');
             const response = await noticeService.updateNotice(this.$route.params.notice_id,formData);
           } 
-            //this.$router.push('/notices');
+            this.$router.push('/notices');
         } catch(error) {
             console.log(error);
             // switch(error.response.status) {

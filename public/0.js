@@ -128,11 +128,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _response = _context.sent;
 
               case 14:
-                _context.next = 19;
+                this.$router.push('/notices');
+                _context.next = 20;
                 break;
 
-              case 16:
-                _context.prev = 16;
+              case 17:
+                _context.prev = 17;
                 _context.t0 = _context["catch"](3);
                 console.log(_context.t0); // switch(error.response.status) {
                 //     case 422:
@@ -146,12 +147,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //         break;
                 // }
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 16]]);
+        }, _callee, this, [[3, 17]]);
       }));
 
       function onSubmit() {
