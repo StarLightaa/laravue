@@ -367,6 +367,24 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./resources/js/services/category_service.js":
+/*!***************************************************!*\
+  !*** ./resources/js/services/category_service.js ***!
+  \***************************************************/
+/*! exports provided: loadCategories */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCategories", function() { return loadCategories; });
+/* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http_service */ "./resources/js/services/http_service.js");
+
+function loadCategories() {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().get('/categories');
+}
+
+/***/ }),
+
 /***/ "./resources/js/views/NoticeForm.vue":
 /*!*******************************************!*\
   !*** ./resources/js/views/NoticeForm.vue ***!

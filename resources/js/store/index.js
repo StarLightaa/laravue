@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import notices from './modules/notices';
+import categories from './modules/categories';
 
 Vue.use(Vuex);
 
@@ -8,6 +10,8 @@ export default new Vuex.Store({
     apiURL: 'http://127.0.0.1:8000/api',
     serverPath: 'http://127.0.0.1:8000',
   },
-  mutations: {},
-  actions: {}
+  modules: {
+    notices,
+    categories
+  }
 });

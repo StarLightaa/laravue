@@ -12,7 +12,7 @@
         </h1>
 
         <Notice
-          v-for="notice in notices" 
+          v-for="notice in allNotices" 
           :key="notice.id"
           :notice = "notice"
         ></Notice>
@@ -49,8 +49,8 @@
         <div class="card my-4">
           <h5 class="card-header">Categories</h5>
           <div class="card-body">
-            <div class="form-check" v-for="(category, index) in categories" :key="category.id">
-              <input class="form-check-input" type="checkbox" :value="category.id" :id="'category'+index" v-model="selected.categories">
+            <div class="form-check" v-for="(category, index) in allCategories" :key="category.id">
+              <input class="form-check-input" type="checkbox" :value="category.id" :id="'category'+index" v-model="userSelectedCategories.categories">
               <label class="form-check-label" :for="'category' + index">
                   {{ category.name }} ({{ category.notices_count }})
               </label>
@@ -76,54 +76,31 @@
 </template>
 
 <script>
-  import * as noticeService from '../services/notice_service';
-  import * as categoryService from '../services/category_service';
+  import { mapGetters, mapActions } from 'vuex';
   import Notice from  './Notice.vue';
-  import Categories from './Categories.vue';
   export default {
     name: 'Notices',
     components: {
       Notice,
-      Categories,
     },
+    computed: mapGetters(["allNotices","allCategories","userSelectedCategories"]),
     data() {
-      return {
-        notices: [],
-        categories: [],
-        selected: {
-          categories: [],
-        }
-      }
+      return {}
     },
-    mounted() {
-      this.loadNotices();
+    async mounted() {
       this.loadCategories();
+      this.loadNotices();
     },
     watch: {
-      selected: {
+      userSelectedCategories: {
         handler: function () {
-          this.loadNotices();
+          this.loadNotices(this.userSelectedCategories);
         },
         deep: true
       }
     },
     methods: {
-      loadNotices: async function() {
-        try {
-          const response = await noticeService.loadNotices(this.selected);
-          this.notices = response.data;
-        } catch(error) {
-            alert('Some error occurred')
-        }
-      },
-      loadCategories: async function() {
-        try {
-          const response = await categoryService.loadCategories();
-          this.categories = response.data;
-        } catch(error) {
-            alert('Some error occurred')
-        }
-      },
+      ...mapActions(["loadNotices", "loadCategories", "changeSelectedCategories"]),
     }, 
   }
 </script>

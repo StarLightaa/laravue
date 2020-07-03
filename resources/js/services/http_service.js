@@ -1,4 +1,4 @@
-import store from '../store';
+import store from '../store/index';
 import axios from 'axios';
 
 export function http() {
