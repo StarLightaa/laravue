@@ -2300,6 +2300,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_notice_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/notice_service */ "./resources/js/services/notice_service.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2328,10 +2337,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Notice',
   props: ['notice'],
-  methods: {// editNotice: async function() {
+  methods: {
+    deleteNotice: function () {
+      var _deleteNotice = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(notice) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (window.confirm("Are you sure you want to delete ".concat(notice.name))) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 2:
+                _context.prev = 2;
+                _context.next = 5;
+                return _services_notice_service__WEBPACK_IMPORTED_MODULE_1__["deleteNotice"](notice.id);
+
+              case 5:
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](2);
+                alert('Some error occurred');
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[2, 7]]);
+      }));
+
+      function deleteNotice(_x) {
+        return _deleteNotice.apply(this, arguments);
+      }
+
+      return deleteNotice;
+    }() // editNotice: async function() {
     //     try {
     //         const formData = new FormData();
     //         formData.append('name', this.editCategoryData.name);
@@ -2357,6 +2412,7 @@ __webpack_require__.r(__webpack_exports__);
     //         });
     //     }
     // },
+
   }
 });
 
@@ -65443,15 +65499,24 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "a",
-          { staticClass: "btn btn-danger btn-sm", attrs: { href: "#" } },
-          [_vm._v("Удалить")]
+          "button",
+          {
+            staticClass: "btn btn-danger btn-sm",
+            on: {
+              click: function($event) {
+                return _vm.deleteNotice(_vm.notice)
+              }
+            }
+          },
+          [_vm._v("\n      Удалить\n    ")]
         )
       ],
       1
     ),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
+      _c("span", [_vm._v("#" + _vm._s(_vm.notice.id) + ".")]),
+      _vm._v(" "),
       _c("span", [
         _vm._v(
           "Создана " +
@@ -87122,7 +87187,7 @@ function httpFile() {
 /*!*************************************************!*\
   !*** ./resources/js/services/notice_service.js ***!
   \*************************************************/
-/*! exports provided: loadNotices, createNotice, updateNotice */
+/*! exports provided: loadNotices, createNotice, updateNotice, deleteNotice */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87130,6 +87195,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadNotices", function() { return loadNotices; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNotice", function() { return createNotice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateNotice", function() { return updateNotice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteNotice", function() { return deleteNotice; });
 /* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http_service */ "./resources/js/services/http_service.js");
 
 function loadNotices(data) {
@@ -87142,6 +87208,9 @@ function createNotice(data) {
 }
 function updateNotice(id, data) {
   return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])().post("notices/".concat(id), data);
+}
+function deleteNotice(id) {
+  return Object(_http_service__WEBPACK_IMPORTED_MODULE_0__["http"])()["delete"]("notices/".concat(id));
 }
 
 /***/ }),

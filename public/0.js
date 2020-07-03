@@ -12,6 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_notice_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/notice_service */ "./resources/js/services/notice_service.js");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/category_service */ "./resources/js/services/category_service.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -61,6 +62,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -69,11 +81,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: '',
         body: ''
       },
-      edited: false
+      edited: false,
+      categories: [],
+      selected: null
     };
   },
   mounted: function mounted() {
     this.isEdit();
+    this.loadCategories();
   },
   methods: {
     isEdit: function isEdit() {
@@ -82,7 +97,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var notice = this.$route.params.notice;
 
       if (notice) {
-        this.form.title = notice.title, this.form.body = notice.body, this.edited = true;
+        this.form.title = notice.title, this.form.body = notice.body, this.selected = notice.category_id, this.edited = true;
       }
     },
     // isEdit() {
@@ -93,49 +108,86 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //   }
     //   return isEdit;
     // },
-    onSubmit: function () {
-      var _onSubmit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var formData, response, _response;
-
+    loadCategories: function () {
+      var _loadCategories = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return _services_category_service__WEBPACK_IMPORTED_MODULE_2__["loadCategories"]();
+
+              case 3:
+                response = _context.sent;
+                this.categories = response.data;
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                alert('Some error occurred');
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 7]]);
+      }));
+
+      function loadCategories() {
+        return _loadCategories.apply(this, arguments);
+      }
+
+      return loadCategories;
+    }(),
+    onSubmit: function () {
+      var _onSubmit = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var formData, response, _response;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
                 formData = new FormData();
                 formData.append('title', this.form.title);
                 formData.append('body', this.form.body);
-                _context.prev = 3;
+                formData.append('category_id', this.selected);
+                _context2.prev = 4;
 
                 if (this.edited) {
-                  _context.next = 10;
+                  _context2.next = 11;
                   break;
                 }
 
-                _context.next = 7;
+                _context2.next = 8;
                 return _services_notice_service__WEBPACK_IMPORTED_MODULE_1__["createNotice"](formData);
 
-              case 7:
-                response = _context.sent;
-                _context.next = 14;
+              case 8:
+                response = _context2.sent;
+                _context2.next = 15;
                 break;
 
-              case 10:
+              case 11:
                 formData.append('_method', 'put');
-                _context.next = 13;
+                _context2.next = 14;
                 return _services_notice_service__WEBPACK_IMPORTED_MODULE_1__["updateNotice"](this.$route.params.notice_id, formData);
 
-              case 13:
-                _response = _context.sent;
-
               case 14:
+                _response = _context2.sent;
+
+              case 15:
                 this.$router.push('/notices');
-                _context.next = 20;
+                _context2.next = 21;
                 break;
 
-              case 17:
-                _context.prev = 17;
-                _context.t0 = _context["catch"](3);
-                console.log(_context.t0); // switch(error.response.status) {
+              case 18:
+                _context2.prev = 18;
+                _context2.t0 = _context2["catch"](4);
+                console.log(_context2.t0); // switch(error.response.status) {
                 //     case 422:
                 //         this.errors = error.response.data.errors;
                 //         break;
@@ -147,12 +199,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //         break;
                 // }
 
-              case 20:
+              case 21:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this, [[3, 17]]);
+        }, _callee2, this, [[4, 18]]);
       }));
 
       function onSubmit() {
@@ -190,6 +242,7 @@ var render = function() {
           _c(
             "b-form",
             {
+              staticClass: "mt-5",
               on: {
                 submit: function($event) {
                   $event.preventDefault()
@@ -255,8 +308,41 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
+                "b-form-select",
+                {
+                  attrs: { text: "Category" },
+                  model: {
+                    value: _vm.selected,
+                    callback: function($$v) {
+                      _vm.selected = $$v
+                    },
+                    expression: "selected"
+                  }
+                },
+                [
+                  _c("b-form-select-option", { attrs: { value: null } }, [
+                    _vm._v(
+                      "\n            Выберите одну из категорий\n          "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function(category) {
+                    return _c(
+                      "b-form-select-option",
+                      { key: category.id, attrs: { value: category.id } },
+                      [_vm._v(_vm._s(category.name) + "\n          ")]
+                    )
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
                 "b-button",
-                { attrs: { type: "submit", variant: "primary" } },
+                {
+                  staticClass: "mt-3",
+                  attrs: { type: "submit", variant: "primary" }
+                },
                 [_vm._v("Сохранить")]
               )
             ],

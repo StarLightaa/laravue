@@ -40,6 +40,8 @@ class NoticeController extends Controller
         $notice = new Notice();
         $notice->title = $request->title;
         $notice->body = $request->body;
+        ($request->category_id === "null") ? 
+            $notice->category_id=NULL : $notice->category_id = $request->category_id;
 
         if($notice->save()) {
             return response()->json($notice, 200);
@@ -82,7 +84,19 @@ class NoticeController extends Controller
      */
     public function update(Request $request, Notice $notice)
     {
-        dd('update method');
+        $notice->title = $request->title;
+        $notice->body = $request->body;
+        ($request->category_id === "null") ? 
+            $notice->category_id=NULL : $notice->category_id = $request->category_id;
+
+        if($notice->save()) {
+            return response()->json($notice, 200);
+        } else {
+            return response()->json([
+                'message' => 'Some error occurred, please try again',
+                'status_code' => 500
+            ], 500);
+        }
     }
 
     /**
@@ -93,6 +107,16 @@ class NoticeController extends Controller
      */
     public function destroy(Notice $notice)
     {
-        //
+        if($notice->delete()) {
+            return response()-> json([
+                'message' => 'Notice deleted successfully',
+                'status_code' => 200
+            ], 200);
+        } else {
+            return response()-> json([
+                'message' => 'Some error occurred, please try again',
+                'status_code' => 500
+            ], 500);
+        }
     }
 }

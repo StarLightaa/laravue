@@ -13,3 +13,7 @@ export function createNotice(data) {
 export function updateNotice(id, data) {
   return http().post(`notices/${id}`, data);
 }
+
+export function deleteNotice(id) {
+  return http().delete(`notices/${id}`);
+}
