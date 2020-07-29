@@ -29,6 +29,12 @@ class NoticeController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        $notices = Notice::with('category')->withSearch();
+        return response()->json($notices, 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

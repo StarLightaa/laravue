@@ -8,4 +8,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('notices', 'NoticeController');
+Route::get('/search', 'NoticeController@search')->name('notices.search');
 Route::get('/categories', 'CategoryController@index')->name('categories.index');

@@ -37,9 +37,9 @@
           <h5 class="card-header">Search</h5>
           <div class="card-body">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for...">
+              <input type="search" v-model="searchString" class="form-control" placeholder="Search for...">
               <span class="input-group-append">
-                <button class="btn btn-secondary" type="button">Go!</button>
+                <button @click="searchNotices()" class="btn btn-secondary" type="button">Go!</button>
               </span>
             </div>
           </div>
@@ -85,7 +85,9 @@
     },
     computed: mapGetters(["allNotices","allCategories","userSelectedCategories"]),
     data() {
-      return {}
+      return {
+        searchString:'',
+      }
     },
     async mounted() {
       this.loadCategories();
@@ -100,7 +102,11 @@
       }
     },
     methods: {
-      ...mapActions(["loadNotices", "loadCategories", "changeSelectedCategories"]),
+      ...mapActions(["loadNotices", "loadCategories", "changeSelectedCategories"]),   
+      searchNotices() {
+        console.log('sd', this.searchString)
+        this.$store.dispatch("searchNotices", this.searchString);
+      }
     }, 
   }
 </script>

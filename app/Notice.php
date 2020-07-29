@@ -16,4 +16,11 @@ class Notice extends Model
             $query->whereIn('category_id', request()->input('categories'));
         });
     }
+
+    public function scopeWithSearch($query)
+    {
+        return $query->where('title', 'like', request()->input('search').'%')
+            ->orWhere('body', 'like', request()->input('search').'%')
+            ->get();
+    }
 }

@@ -2425,7 +2425,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["allNotices", "allCategories", "userSelectedCategories"]),
   data: function data() {
-    return {};
+    return {
+      searchString: ''
+    };
   },
   mounted: function mounted() {
     var _this = this;
@@ -2455,7 +2457,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       deep: true
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["loadNotices", "loadCategories", "changeSelectedCategories"]))
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["loadNotices", "loadCategories", "changeSelectedCategories"])), {}, {
+    searchNotices: function searchNotices() {
+      console.log('sd', this.searchString);
+      this.$store.dispatch("searchNotices", this.searchString);
+    }
+  })
 });
 
 /***/ }),
@@ -65118,7 +65125,7 @@ var render = function() {
                       "router-link",
                       {
                         staticClass: "nav-link",
-                        attrs: { to: "#", "active-class": "active" }
+                        attrs: { to: "/tasks", "active-class": "active" }
                       },
                       [_vm._v("\n              Задачи\n            ")]
                     )
@@ -65314,7 +65321,51 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
-        _vm._m(2),
+        _c("div", { staticClass: "card my-4" }, [
+          _c("h5", { staticClass: "card-header" }, [_vm._v("Search")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchString,
+                    expression: "searchString"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "search", placeholder: "Search for..." },
+                domProps: { value: _vm.searchString },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchString = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.searchNotices()
+                      }
+                    }
+                  },
+                  [_vm._v("Go!")]
+                )
+              ])
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "card my-4" }, [
           _c("h5", { staticClass: "card-header" }, [_vm._v("Categories")]),
@@ -65452,31 +65503,6 @@ var staticRenderFns = [
       _c("li", { staticClass: "page-item disabled" }, [
         _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
           _vm._v("Newer →")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card my-4" }, [
-      _c("h5", { staticClass: "card-header" }, [_vm._v("Search")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "input-group" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Search for..." }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "input-group-append" }, [
-            _c(
-              "button",
-              { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-              [_vm._v("Go!")]
-            )
-          ])
         ])
       ])
     ])
@@ -86869,6 +86895,12 @@ var routes = [{
     component: function component() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/NoticeForm.vue */ "./resources/js/views/NoticeForm.vue"));
     }
+  }, {
+    path: 'tasks',
+    name: 'tasks',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Tasks.vue */ "./resources/js/views/Tasks.vue"));
+    }
   }]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
@@ -87106,6 +87138,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    searchNotices: function searchNotices(_ref2, searchString) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                _context2.next = 3;
+                return Object(_services_http_service__WEBPACK_IMPORTED_MODULE_1__["http"])().get('/search', {
+                  params: {
+                    search: searchString
+                  }
+                });
+
+              case 3:
+                response = _context2.sent;
+                commit('updateNotices', response.data);
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   },

@@ -42,6 +42,11 @@ const routes = [
         name: 'notice-edit',
         component: () => import('./views/NoticeForm.vue'),
       },
+      {
+        path:'tasks',
+        name: 'tasks',
+        component: () => import('./views/Tasks.vue'),
+    },
     ],
   }
 ]

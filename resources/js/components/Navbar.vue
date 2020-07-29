@@ -19,7 +19,7 @@
               </router-link>
           </li>
           <li class="nav-item">
-              <router-link to="#" class="nav-link" active-class="active">
+              <router-link to="/tasks" class="nav-link" active-class="active">
                 Задачи
               </router-link>
           </li>
